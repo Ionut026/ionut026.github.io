@@ -1,0 +1,21 @@
+<div class='row'>
+    <div class='col-md-4 mb-2'>
+        <app-movie-list [movies]="movies$ | async" [selectedMovie]="selectedMovie$ | async"
+            [errorMessage]="errorMessage$ | async" (movieWasSelected)="movieSelected($any($event))"></app-movie-list>
+    </div>
+    <div class='col-md-8 mb-2'>
+        <app-movie-details *ngIf="(interactionMode$ | async) === MovieInterationModeType.View"
+            [interactionMode]="(interactionMode$ | async)" [selectedMovie]="selectedMovie$ | async"
+            [errorMessage]="errorMessage$ | async" (delete)="deleteMovie($any($event))" 
+            (changeInterationMode)="changeInterationMode($any($event))"
+            (toggleWatched)="toggleWatchedFlag($any($event))">
+        </app-movie-details>
+
+        <app-movie-edit
+            *ngIf="(interactionMode$ | async) === MovieInterationModeType.Insert || (interactionMode$ | async) === MovieInterationModeType.Edit"
+            [selectedMovie]="selectedMovie$ | async" [errorMessage]="errorMessage$ | async"
+            (create)="createMovie($any($event))" (update)="updateMovie($any($event))"
+            (delete)="deleteMovie($any($event))" (changeInterationMode)="changeInterationMode($any($event))">
+        </app-movie-edit>
+    </div>
+</div>

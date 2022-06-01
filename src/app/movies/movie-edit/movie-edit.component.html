@@ -1,0 +1,101 @@
+<div class="card bg-dark text-light">
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+    <form *ngIf="selectedMovie" (ngSubmit)="onSubmit()" class="bg-dark text-light" [formGroup]="editFormGroup" validate>
+        <div class="card-body bg-secondary">
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="name">Movie Name</label>
+                <input id="name" type="text" class="form-control bg-dark text-light bg-dark text-light"
+                    formControlName="name" title="Name" [ngClass]="{
+                'is-invalid':
+                editFormGroup.controls['name'].touched &&
+                editFormGroup.controls['name'].errors
+              }" required>
+                <div class="invalid-feedback" *ngIf="editFormGroup.controls['name'].errors">
+                    This value is required.
+                </div>
+            </div>
+
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="directorName">Director Name</label>
+                <input id="directorName" type="text" class="form-control bg-dark text-light"
+                    formControlName="directorName" title="Director Name" [ngClass]="{
+                'is-invalid':
+                editFormGroup.controls['directorName'].touched &&
+                editFormGroup.controls['directorName'].errors
+              }" required>
+                <div class="invalid-feedback" *ngIf="editFormGroup.controls['directorName'].errors">
+                    This value is required.
+                </div>
+            </div>
+
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="releaseDate">Release Date</label>
+                <input type="text" id="releaseDate" formControlName="releaseDate" title="Release Date"
+                    class="form-control bg-dark text-light" bsDatepicker [ngClass]="{
+                'is-invalid':
+                editFormGroup.controls['releaseDate'].touched &&
+                editFormGroup.controls['releaseDate'].errors
+              }" required>
+                <div class="invalid-feedback" *ngIf="editFormGroup.controls['releaseDate'].errors">
+                    This value is required.
+                </div>
+            </div>
+
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="rating">Rating</label>
+                <input id="rating" type="number" min="0" max="5" class="form-control bg-dark text-light"
+                    formControlName="rating" title="Rating" [ngClass]="{
+                'is-invalid':
+                editFormGroup.controls['rating'].touched &&
+                editFormGroup.controls['rating'].errors
+              }" required>
+                <div class="invalid-feedback" *ngIf="editFormGroup.controls['rating'].errors">
+                    This value is required and needs to be between 0 and 5.
+                </div>
+            </div>
+
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="synopsis">Synopsis</label>
+                <textarea id="synopsis" class="form-control bg-dark text-light" rows="3" formControlName="synopsis"
+                    title="Synopsis" [ngClass]="{
+                'is-invalid':
+                editFormGroup.controls['synopsis'].touched &&
+                editFormGroup.controls['synopsis'].errors
+              }"></textarea>
+            </div>
+
+            <div class="form-group mb-2 mb-2">
+                <label class="control-label" for="posterImgUrl">Poster Image URL</label>
+                <input id="posterImgUrl" type="text" class="form-control bg-dark text-light"
+                    formControlName="posterImgUrl" title="Poster Image URL">
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input bg-dark text-light" type="checkbox" id="watched" title="Watched"
+                    formControlName="watched" />
+                <label class="form-check-label" for="watched" id="watchedLabel'">
+                    Watched
+                </label>
+            </div>
+        </div>
+        <div class="card-footer bg-dark text-light">
+            <div class="d-flex my-3">
+                <button class="btn btn-primary text-light text-light ms-0 me-2"
+                    [disabled]="!editFormGroup.valid || !editFormGroup.dirty" type="submit">
+                    Save
+                </button>
+
+                <button class="btn btn-secondary text-light me-2" (click)="onCancel()">
+                    Cancel
+                </button>
+
+                <button *ngIf="selectedMovie && selectedMovie.id !== 0" class="btn btn-danger ms-auto me-0"
+                    type="button" style="width:80px" (click)="onDelete(selectedMovie)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

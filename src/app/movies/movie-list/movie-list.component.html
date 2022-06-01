@@ -1,0 +1,17 @@
+<div class="card  bg-dark text-light">
+
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+
+    <div class="card-body bg-secondary" *ngIf="movies">
+        <div class="list-group">
+            <button class="list-group-item list-group-item-action rounded-0 text-light bg-dark" *ngFor="let movie of movies"
+                [ngClass]="{'active': movie?.id === selectedMovie?.id}"  (click)="movieSelected(movie)">{{ movie.name }}
+            </button>
+        </div>
+    </div>   
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+    Error: {{ errorMessage }}
+</div>

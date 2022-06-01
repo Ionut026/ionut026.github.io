@@ -1,0 +1,64 @@
+<div class="card bg-dark text-light">
+    <div class="card-header">
+        {{pageTitle}}
+    </div>
+    <div class="card-body bg-secondary">
+        <div *ngIf="selectedMovie" class="row justify-content-center ">
+            <img [src]="selectedMovie.posterImgUrl" class="col-auto" style="max-height: 300px;">
+        </div>
+
+        <tbody *ngIf="selectedMovie" class="table justify-content-center text-light">
+            <tr>
+                <td>Name: </td>
+                <td> {{ selectedMovie.name }} </td>
+            </tr>
+            <tr>
+                <td>Director: </td>
+                <td> {{ selectedMovie.directorName }} </td>
+            </tr>
+            <tr>
+                <td>Release Date: </td>
+                <td> {{ selectedMovie.releaseDate | date }} </td>
+            </tr>
+            <tr>
+                <td>Rating: </td>
+                <td> {{ selectedMovie.rating }} </td>
+            </tr>
+            <tr>
+                <td>Synopsis: </td>
+                <td> {{ selectedMovie.synopsis }} </td>
+            </tr>
+            <tr>
+                <td>Watched: </td>
+                <td>{{ selectedMovie.watched === true ? 'Yes' : 'No'}} </td>
+            </tr>
+        </tbody>
+
+        <div *ngIf="!selectedMovie">
+            No movie selected. Please select one movie from the list on the left side or add a new one.
+        </div>
+
+    </div>
+    <div class="card-footer bg-dark text-light">
+        <div class="d-flex my-3">
+            <button class="btn btn-primary text-light text-light ms-0 me-2" (click)="onSetInsertMode()">
+                Add
+            </button>
+
+            <button *ngIf="selectedMovie" class="btn btn-primary text-light me-2" (click)="onSetEditMode()">
+                Edit
+            </button>
+
+            <button *ngIf="selectedMovie" class="btn btn-primary text-lightme-2"
+                (click)="onMarkMovieAsWatched(selectedMovie)">
+                <span *ngIf="!selectedMovie.watched">Mark as watched</span>
+                <span *ngIf="selectedMovie.watched">Mark as unwatched</span>
+            </button>
+
+            <button *ngIf="selectedMovie" class="btn btn-danger ms-auto me-0" type="button" style="width:80px"
+                (click)="onDelete(selectedMovie)">
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
